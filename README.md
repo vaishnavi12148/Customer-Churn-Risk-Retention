@@ -101,4 +101,8 @@ The complete SQL workflow is available in [`sql/customer_churn_analysis.sql`](sq
 
 It covers data cleaning, cancellation handling, RFM calculation, `NTILE` scoring, customer segmentation, and revenue analysis.
 
+---
 
+## 👤 Author
+
+**Vaishnavi Phadatare**
