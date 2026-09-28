@@ -1,0 +1,52 @@
+-- ============================================
+-- CUSTOMER CHURN RISK & RETENTION STRATEGY
+-- SQL ANALYSIS
+-- ============================================
+
+-- 1. Create cleaned retail table
+-- Removes non-product/fee-related stock codes
+-- while keeping the original online_retail table unchanged.
+
+CREATE TABLE clean_online_retail AS
+SELECT *
+FROM online_retail
+WHERE stockcode NOT IN ('POST','D','M','C2','BANK CHARGES','PADS','DOT','CRUK'
+);
+
+
+-- 2. Add cancellation flag
+-- TRUE  = cancelled order
+-- FALSE = normal order
+
+ALTER TABLE clean_online_retail
+ADD COLUMN is_cancelled BOOLEAN;
+
+UPDATE clean_online_retail
+SET is_cancelled = CASE
+    WHEN invoice LIKE 'C%' THEN TRUE
+    ELSE FALSE
+END;
+
+-- 3. Create a view for customer analysis
+-- Keeps only identified customers and completed transactions.
+
+CREATE VIEW view_transactions AS
+SELECT *
+FROM clean_online_retail
+WHERE customer_id IS NOT NULL
+  AND customer_id != ''
+  AND is_cancelled = FALSE;
+
+-- 4. Calculate RFM metrics for each customer
+-- Recency  = days since the customer's last purchase
+-- Frequency = number of distinct invoices/orders
+-- Monetary = total amount spent
+
+CREATE TABLE customer_rfm AS
+SELECT
+    customer_id,
+    DATE '2011-12-04' - MAX(invoicedate)::date AS recency_days,
+    COUNT(DISTINCT invoice) AS frequency,
+    SUM(quantity * price) AS monetary
+FROM view_transactions
+GROUP BY customer_id;
