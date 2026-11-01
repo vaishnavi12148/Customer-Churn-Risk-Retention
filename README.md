@@ -76,9 +76,9 @@ The dashboard provides an interactive view of:
 
 ![Customer Churn Risk & Retention Dashboard](images/dashboard.png)
 
-## 🛠️ Tools Used
+## 🛠️ Tools & Tech Used
 
-**PostgreSQL | SQL | Power BI | DAX | Excel | RFM Analysis**
+**PostgreSQL | SQL | Power BI | DAX | RFM Analysis**
 
 ## 📁 Project Structure
 
