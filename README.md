@@ -1,4 +1,4 @@
-# 📊 Customer Churn Risk & Retention Strategy
+# 📊 Customer Churn Risk Analysis & Customer Segmentation
 
 A data analytics project that uses **SQL, RFM analysis, and Power BI** to identify customer segments, measure revenue contribution, and classify customers by churn risk.
 
